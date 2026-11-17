@@ -69,12 +69,15 @@
           text = builtins.readFile ./nix/update-generated.bash;
         };
 
+        policy = import ./nix/hook/policy.nix { inherit pkgs; };
+
         hook = import ./nix/hook {
           inherit
             git-hooks
             system
             pkgs
             updateGenerated
+            policy
             ;
           src = ./.;
         };
@@ -102,7 +105,14 @@
         checks = {
           pre-commit = hook;
         }
-        // import ./nix/test { inherit pkgs generate updateGenerated; };
+        // import ./nix/test {
+          inherit
+            pkgs
+            generate
+            updateGenerated
+            policy
+            ;
+        };
 
         devShells.default = pkgs.mkShell {
           inherit (hook) shellHook;

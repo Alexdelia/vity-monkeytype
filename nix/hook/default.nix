@@ -4,18 +4,13 @@
   pkgs,
   src,
   updateGenerated,
+  policy,
 }:
 let
   policyHook = name: files: {
     enable = true;
     inherit name files;
-    entry = pkgs.lib.getExe (
-      pkgs.writeShellApplication {
-        inherit name;
-        runtimeInputs = [ pkgs.ripgrep ];
-        text = builtins.readFile ./${name}.bash;
-      }
-    );
+    entry = pkgs.lib.getExe policy.${name};
   };
 in
 git-hooks.lib.${system}.run {

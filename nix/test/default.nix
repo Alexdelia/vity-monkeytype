@@ -2,6 +2,7 @@
   pkgs,
   generate,
   updateGenerated,
+  policy,
 }:
 let
   inherit (pkgs) lib;
@@ -17,7 +18,8 @@ let
           pkgs.jq
           pkgs.uutils-coreutils-noprefix
           pkgs.ripgrep
-        ];
+        ]
+        ++ lib.attrValues policy;
         text = builtins.readFile ./${name}.bash;
       };
       fixture = ./${name}.yaml;
