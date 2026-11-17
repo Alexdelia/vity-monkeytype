@@ -16,6 +16,7 @@ let
           updateGenerated
           pkgs.jq
           pkgs.uutils-coreutils-noprefix
+          pkgs.ripgrep
         ];
         text = builtins.readFile ./${name}.bash;
       };

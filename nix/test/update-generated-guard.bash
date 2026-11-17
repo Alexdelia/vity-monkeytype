@@ -23,18 +23,24 @@ refuses() {
 
 (
 	fresh_dir_with_palette
-	printf '%s\n' '<table>' '</table>' >README.md
+	printf '%s\n' '<table id="palette">' '</table>' >README.md
 	refuses "no share url"
 )
 
 (
 	fresh_dir_with_palette
-	printf '%s\n' 'https://monkeytype.com?customTheme=x' '  <table>' '</table>' >README.md
+	printf '%s\n' 'https://monkeytype.com?customTheme=x' '  <table id="palette">' '</table>' >README.md
 	refuses "indented table"
 )
 
 (
 	fresh_dir_with_palette
-	printf '%s\n' 'https://monkeytype.com?customTheme=x' '<table>' >README.md
+	printf '%s\n' 'https://monkeytype.com?customTheme=x' '<table id="palette">' >README.md
 	refuses "unclosed table"
+)
+
+(
+	fresh_dir_with_palette
+	printf '%s\n' 'https://monkeytype.com?customTheme=x' '<table>' '</table>' >README.md
+	refuses "table without palette id"
 )

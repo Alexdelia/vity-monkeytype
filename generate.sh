@@ -64,7 +64,7 @@ jq -r --arg dir "$palette_dir" '
 		["error", "error"], ["errorExtra", "extra error"],
 		["colorfulError", "colorful error"], ["colorfulErrorExtra", "colorful extra error"]
 	]
-	| "<table>",
+	| "<table id=\"palette\">",
 		(range(0; length; 2) as $row_start | .[$row_start:$row_start + 2] | "<tr>", (.[] | cell), "</tr>"),
 		"</table>"
 ' <<<"$theme"

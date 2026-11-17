@@ -2,7 +2,7 @@
 
 [vity](https://github.com/Alexdelia/vity-base24) theme for [monkeytype](https://monkeytype.com).
 
-<table>
+<table id="palette">
 <tr>
 <td>background</td>
 <td><code>#111111</code></td>
