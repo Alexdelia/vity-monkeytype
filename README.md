@@ -66,7 +66,7 @@ nix run github:Alexdelia/vity-monkeytype#generate -- path/to/scheme.yaml
 nix run github:Alexdelia/vity-monkeytype#generate -- --palette palette path/to/scheme.yaml > table.html
 ```
 
-without nix, `yq` ([yq-go](https://github.com/mikefarah/yq)) and `jq` on `PATH`:
+without nix, `yq` ([yq-go](https://github.com/mikefarah/yq)) and `jq` `>= 1.7` on `PATH`:
 
 ```sh
 ./generate.sh [--palette <dir>] path/to/scheme.yaml
