@@ -18,7 +18,7 @@ fi
 
 theme=$(yq -o=json '(.. | select(tag == "!!int" or tag == "!!float")) tag = "!!str" | .palette // .' "$1" | jq '
 	def color($key): (.[$key] // error("scheme has no \($key)")) | tostring | "#" + ltrimstr("#");
-	def color($key; $fallback): if has($key) then color($key) else color($fallback) end;
+	def color($key; $fallback): if .[$key] != null then color($key) else color($fallback) end;
 
 	{
 		bg: color("base00"),
