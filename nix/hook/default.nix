@@ -45,13 +45,7 @@ git-hooks.lib.${system}.run {
       pass_filenames = false;
     };
 
-    deadnix = {
-      enable = true;
-      stages = [ "pre-push" ];
-    };
-    statix = {
-      enable = true;
-      stages = [ "pre-push" ];
-    };
+    deadnix.enable = true;
+    statix.enable = true;
   };
 }
