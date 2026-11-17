@@ -58,9 +58,9 @@
         updateGenerated = pkgs.writeShellApplication {
           name = "update-generated";
           runtimeInputs = with pkgs; [
-            coreutils
-            gnused
-            gawk
+            uutils-coreutils-noprefix
+            uutils-sed
+            ripgrep
           ];
           runtimeEnv = {
             VITY_URL = vityUrl;
@@ -102,7 +102,7 @@
         checks = {
           pre-commit = hook;
         }
-        // import ./nix/test { inherit pkgs generate; };
+        // import ./nix/test { inherit pkgs generate updateGenerated; };
 
         devShells.default = pkgs.mkShell {
           inherit (hook) shellHook;

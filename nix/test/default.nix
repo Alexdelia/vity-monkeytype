@@ -1,6 +1,7 @@
 {
   pkgs,
   generate,
+  updateGenerated,
 }:
 let
   inherit (pkgs) lib;
@@ -12,14 +13,16 @@ let
         inherit name;
         runtimeInputs = [
           generate
+          updateGenerated
           pkgs.jq
-          pkgs.coreutils
+          pkgs.uutils-coreutils-noprefix
         ];
         text = builtins.readFile ./${name}.bash;
       };
+      fixture = ./${name}.yaml;
     in
     pkgs.runCommand name { } ''
-      ${lib.getExe test} ${./${name}.yaml}
+      ${lib.getExe test} ${lib.optionalString (builtins.pathExists fixture) "${fixture}"}
       touch $out
     '';
 

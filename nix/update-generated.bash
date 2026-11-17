@@ -1,11 +1,18 @@
+if ! rg -q --no-messages 'https://monkeytype\.com\?customTheme=' README.md ||
+	! rg -qFx --no-messages '<table>' README.md ||
+	! rg -qFx --no-messages '</table>' README.md; then
+	echo "update-generated: no README.md with share url and <table>...</table> in $PWD, run from repo root" >&2
+	exit 1
+fi
+
 rm -rf palette
 cp -r --no-preserve=mode "$VITY_PALETTE/palette" palette
 
 sed -i -E "s|https://monkeytype\.com\?customTheme=[A-Za-z0-9%]*|$(cat "$VITY_URL")|g" README.md
 
-awk -v table="$VITY_PALETTE/table.html" '
-	/^<table>$/ { while ((getline line < table) > 0) print line; skipping = 1 }
-	!skipping { print }
-	/^<\/table>$/ { skipping = 0 }
-' README.md >README.md.tmp
-mv README.md.tmp README.md
+sed -i \
+	-e '/^<table>$/,/^<\/table>$/{' \
+	-e "/^<\/table>$/r $VITY_PALETTE/table.html" \
+	-e 'd' \
+	-e '}' \
+	README.md
