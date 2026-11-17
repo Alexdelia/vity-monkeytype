@@ -5,33 +5,43 @@
 <table>
 <tr>
 <td>background</td>
-<td><img src="palette/bg.svg" alt="#111111"> <code>#111111</code></td>
+<td><code>#111111</code></td>
+<td><img src="palette/bg.svg" alt="#111111"></td>
 <td>main</td>
-<td><img src="palette/main.svg" alt="#a020f0"> <code>#a020f0</code></td>
+<td><code>#a020f0</code></td>
+<td><img src="palette/main.svg" alt="#a020f0"></td>
 </tr>
 <tr>
 <td>sub</td>
-<td><img src="palette/sub.svg" alt="#808080"> <code>#808080</code></td>
+<td><code>#808080</code></td>
+<td><img src="palette/sub.svg" alt="#808080"></td>
 <td>text</td>
-<td><img src="palette/text.svg" alt="#e0e0e0"> <code>#e0e0e0</code></td>
+<td><code>#e0e0e0</code></td>
+<td><img src="palette/text.svg" alt="#e0e0e0"></td>
 </tr>
 <tr>
 <td>caret</td>
-<td><img src="palette/caret.svg" alt="#ffd1ff"> <code>#ffd1ff</code></td>
+<td><code>#ffd1ff</code></td>
+<td><img src="palette/caret.svg" alt="#ffd1ff"></td>
 <td>sub alt</td>
-<td><img src="palette/subAlt.svg" alt="#202020"> <code>#202020</code></td>
+<td><code>#202020</code></td>
+<td><img src="palette/subAlt.svg" alt="#202020"></td>
 </tr>
 <tr>
 <td>error</td>
-<td><img src="palette/error.svg" alt="#d32f2f"> <code>#d32f2f</code></td>
+<td><code>#d32f2f</code></td>
+<td><img src="palette/error.svg" alt="#d32f2f"></td>
 <td>extra error</td>
-<td><img src="palette/errorExtra.svg" alt="#960707"> <code>#960707</code></td>
+<td><code>#960707</code></td>
+<td><img src="palette/errorExtra.svg" alt="#960707"></td>
 </tr>
 <tr>
 <td>colorful error</td>
-<td><img src="palette/colorfulError.svg" alt="#ff0000"> <code>#ff0000</code></td>
+<td><code>#ff0000</code></td>
+<td><img src="palette/colorfulError.svg" alt="#ff0000"></td>
 <td>colorful extra error</td>
-<td><img src="palette/colorfulErrorExtra.svg" alt="#d32f2f"> <code>#d32f2f</code></td>
+<td><code>#d32f2f</code></td>
+<td><img src="palette/colorfulErrorExtra.svg" alt="#d32f2f"></td>
 </tr>
 </table>
 

@@ -55,7 +55,8 @@ jq -r --arg dir "$palette_dir" '
 	. as $theme
 	| def cell: .[0] as $slot | .[1] as $label | $theme[$slot] as $hex
 		| "<td>\($label)</td>",
-			"<td><img src=\"\($dir)/\($slot).svg\" alt=\"\($hex)\"> <code>\($hex)</code></td>";
+			"<td><code>\($hex)</code></td>",
+			"<td><img src=\"\($dir)/\($slot).svg\" alt=\"\($hex)\"></td>";
 	[
 		["bg", "background"], ["main", "main"],
 		["sub", "sub"], ["text", "text"],
