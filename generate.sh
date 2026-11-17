@@ -40,16 +40,22 @@ if [[ -z $palette_dir ]]; then
 fi
 
 mkdir -p "$palette_dir"
-while read -r slot; do
-	jq -r --arg slot "$slot" '
-		.[$slot] as $box
-		| (if $slot == "bg" or $slot == "subAlt" then .text else .bg end) as $text_color
-		| "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"84\" height=\"28\" viewBox=\"0 0 84 28\">",
+while IFS= read -r -d '' slot && IFS= read -r -d '' svg; do
+	printf '%s\n' "$svg" >"$palette_dir/$slot.svg"
+done < <(jq --raw-output0 '
+	. as $theme
+	| to_entries[]
+	| .key as $slot
+	| .value as $box
+	| (if $slot == "bg" or $slot == "subAlt" then $theme.text else $theme.bg end) as $text_color
+	| $slot,
+		([
+			"<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"84\" height=\"28\" viewBox=\"0 0 84 28\">",
 			"<rect width=\"84\" height=\"28\" rx=\"6\" fill=\"\($box)\"/>",
 			"<text x=\"42\" y=\"14\" fill=\"\($text_color)\" font-family=\"monospace\" font-size=\"14\" text-anchor=\"middle\" dominant-baseline=\"central\">\($box)</text>",
 			"</svg>"
-	' <<<"$theme" >"$palette_dir/$slot.svg"
-done < <(jq -r 'keys_unsorted[]' <<<"$theme")
+		] | join("\n"))
+' <<<"$theme")
 
 jq -r --arg dir "$palette_dir" '
 	. as $theme
