@@ -99,7 +99,10 @@
           update-generated = mkApp updateGenerated "write current vity share url and palette table into README.md, swatches into palette/";
         };
 
-        checks.pre-commit = hook;
+        checks = {
+          pre-commit = hook;
+        }
+        // import ./nix/test { inherit pkgs generate; };
 
         devShells.default = pkgs.mkShell {
           inherit (hook) shellHook;

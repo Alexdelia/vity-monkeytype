@@ -16,7 +16,7 @@ if [[ ${1-} == --palette ]]; then
 fi
 [[ $# -eq 1 ]] || usage
 
-theme=$(yq -o=json '.palette // .' "$1" | jq '
+theme=$(yq -o=json '(.. | select(tag == "!!int" or tag == "!!float")) tag = "!!str" | .palette // .' "$1" | jq '
 	def color($key): (.[$key] // error("scheme has no \($key)")) | tostring | "#" + ltrimstr("#");
 	def color($key; $fallback): if has($key) then color($key) else color($fallback) end;
 
