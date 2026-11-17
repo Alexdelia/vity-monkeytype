@@ -1,0 +1,2 @@
+[default]
+extend-ignore-re = ["customTheme=[A-Za-z0-9%]*"]

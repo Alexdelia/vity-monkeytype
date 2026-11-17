@@ -1,0 +1,20 @@
+name: check
+
+on:
+  push:
+    branches: ["main"]
+  pull_request:
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+
+    timeout-minutes: 10
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: cachix/install-nix-action@v31
+
+      - name: check
+        run: nix flake check
