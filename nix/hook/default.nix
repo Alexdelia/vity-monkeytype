@@ -3,7 +3,7 @@
   system,
   pkgs,
   src,
-  updateReadme,
+  updateGenerated,
 }:
 let
   policyHook = name: files: {
@@ -36,11 +36,11 @@ git-hooks.lib.${system}.run {
       types = [ "text" ];
     };
 
-    readme-url = {
+    generated = {
       enable = true;
-      name = "readme url";
-      description = "write current vity share url into README.md";
-      entry = "${pkgs.lib.getExe updateReadme}";
+      name = "generated";
+      description = "write current vity share url and palette table into README.md, swatches into palette/";
+      entry = "${pkgs.lib.getExe updateGenerated}";
       always_run = true;
       pass_filenames = false;
     };

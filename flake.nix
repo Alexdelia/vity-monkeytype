@@ -44,17 +44,29 @@
           ${lib.getExe generate} ${vity-base24}/vity.yaml > $out
         '';
 
+        vityPalette = pkgs.runCommand "vity-monkeytype-palette" { } ''
+          mkdir $out
+          cd $out
+          ${lib.getExe generate} --palette palette ${vity-base24}/vity.yaml > table.html
+        '';
+
         printVityUrl = pkgs.writeShellApplication {
           name = "vity-monkeytype";
           text = "cat ${vityUrl}";
         };
 
-        updateReadme = pkgs.writeShellApplication {
-          name = "update-readme";
-          runtimeInputs = [ pkgs.gnused ];
-          text = ''
-            sed -i -E 's|https://monkeytype\.com\?customTheme=[A-Za-z0-9%]*|'"$(cat ${vityUrl})"'|g' README.md
-          '';
+        updateGenerated = pkgs.writeShellApplication {
+          name = "update-generated";
+          runtimeInputs = with pkgs; [
+            coreutils
+            gnused
+            gawk
+          ];
+          runtimeEnv = {
+            VITY_URL = vityUrl;
+            VITY_PALETTE = vityPalette;
+          };
+          text = builtins.readFile ./nix/update-generated.bash;
         };
 
         hook = import ./nix/hook {
@@ -62,7 +74,7 @@
             git-hooks
             system
             pkgs
-            updateReadme
+            updateGenerated
             ;
           src = ./.;
         };
@@ -76,14 +88,15 @@
       {
         packages = {
           default = vityUrl;
+          palette = vityPalette;
           inherit generate;
-          update-readme = updateReadme;
+          update-generated = updateGenerated;
         };
 
         apps = {
           default = mkApp printVityUrl "print vity monkeytype share url";
-          generate = mkApp generate "print monkeytype share url of any base16 / base24 scheme";
-          update-readme = mkApp updateReadme "write current vity share url into README.md";
+          generate = mkApp generate "print monkeytype share url, or palette swatches and table, of any base16 / base24 scheme";
+          update-generated = mkApp updateGenerated "write current vity share url and palette table into README.md, swatches into palette/";
         };
 
         checks.pre-commit = hook;
